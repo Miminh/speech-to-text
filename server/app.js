@@ -5,6 +5,7 @@ const app = express();
 const { createClient } = require("@deepgram/sdk");
 const fs = require("fs");
 const path = require("path");
+require("dotenv");
 
 const filename = "test.ogg";
 
@@ -19,7 +20,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const deepgram = createClient("1fe737dd44d5bb4bd805dcf2b4833d47dac1aa72");
+const deepgram = createClient(process.env.DEEPGRAM_API);
 
 // Detects speech in the audio file
 const requestTranscription = async () => {
