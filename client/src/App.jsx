@@ -45,12 +45,14 @@ function App() {
   const [currText, setCurrText] = useState("");
   const [processing, setProcesing] = useState(false);
   const [listening, setListening] = useState(false);
+  const [error, setError] = useState(false);
 
   const mediaRecorder = useRef(null);
   let chunks = useRef([]);
 
   const onStartClick = () => {
     console.log("Starting recording");
+    setError(false);
     setListening(true);
     mediaRecorder.current.start();
   };
@@ -90,6 +92,7 @@ function App() {
           };
         })
         .catch((err) => {
+          setError(true);
           console.log(err);
         });
     } else {
@@ -124,6 +127,7 @@ function App() {
       )}
       {listening && <div>Listening....</div>}
       {processing && <div>Processing....</div>}
+      {error && <div className="text-red-500">Some Error Occured</div>}
     </main>
   );
 }
